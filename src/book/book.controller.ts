@@ -3,13 +3,16 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundExcep
 import { CreateBookDTO } from './dto/book.dto';
 
 import { BookService } from './book.service';
-import { NotFoundError } from 'rxjs';
+
+import { ApiTags } from '@nestjs/swagger';
+
 
 @Controller('book')
 export class BookController {
 
     constructor(private bookService: BookService){}
 
+    @ApiTags('Book')
     @Post('/createBook')
     async createPost(@Res() res, @Body() createBookDTO: CreateBookDTO){
         const book = await this.bookService.createBook(createBookDTO);
@@ -19,6 +22,7 @@ export class BookController {
         });
     }
 
+    @ApiTags('Book')
     @Get('/getBooks')
     async getBooks(@Res() res){
         const books = await this.bookService.getBooks();
@@ -28,6 +32,7 @@ export class BookController {
         })
     }
 
+    @ApiTags('Book')
     @Get('/:bookID')
     async getBook(@Res() res, @Param('bookID') bookID: string){
         const book = await this.bookService.getBook(bookID);
@@ -40,6 +45,7 @@ export class BookController {
         })
     }
 
+    @ApiTags('Book')
     @Delete('/deletebook/:bookID')
     async deleteBook(@Res() res, @Param('bookID') bookID: string){
         const book = await this.bookService.deleteBook(bookID);
@@ -48,6 +54,7 @@ export class BookController {
         })
     }
 
+    @ApiTags('Book')
     @Put('/update/:bookID')
     async updateBook(@Param('bookID') bookID: string, @Body() createBookDTO: CreateBookDTO, @Res() res){
         const updatedBook = await this.bookService.updateBook(bookID, createBookDTO);
