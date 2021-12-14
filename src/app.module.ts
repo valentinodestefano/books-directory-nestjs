@@ -5,7 +5,9 @@ import { BookModule } from './book/book.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [BookModule, MongooseModule.forRoot('mongodb://localhost/books-nestjs')],
+  imports: [BookModule, MongooseModule.forRoot('mongodb://localhost/books-nestjs', {
+    useNewUrlParser: true
+  })],
   controllers: [AppController],
   providers: [AppService],
 })
