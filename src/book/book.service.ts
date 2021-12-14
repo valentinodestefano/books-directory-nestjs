@@ -31,8 +31,8 @@ export class BookService {
     }
 
     async updateBook(bookID: string, createBookDTO: CreateBookDTO): Promise<Book>{
-        const bookUpdated = await this.bookModel.findByIdAndUpdate(bookID, createBookDTO, { new: true});
-        return bookUpdated;
+        const bookToUpdate = await this.bookModel.findByIdAndUpdate(bookID, createBookDTO);
+        return await bookToUpdate.save();
     }
 
 }
