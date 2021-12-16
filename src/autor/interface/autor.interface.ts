@@ -1,4 +1,7 @@
-import { Document } from "mongoose";
+
+import { Document, Types } from "mongoose";
+
+import { Book } from "src/book/interface/book.interface";
 
 export interface Autor extends Document {
     readonly name: string;

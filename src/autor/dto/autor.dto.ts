@@ -1,4 +1,6 @@
+import { OmitType, PartialType } from '@nestjs/swagger';
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
+import { isArray } from 'util';
 export class CreateAutorDTO {
 
     @ApiModelProperty({
@@ -30,4 +32,14 @@ export class CreateAutorDTO {
         example: 'Alive',
     })
     readonly status: string;
+
+    @ApiModelProperty({
+        description: 'Autors Books',
+        example: 'string',
+    })
+    readonly books: string[];
 }
+
+export class UpdateAutorDTO extends PartialType(
+    OmitType(CreateAutorDTO, ['books']),
+){}

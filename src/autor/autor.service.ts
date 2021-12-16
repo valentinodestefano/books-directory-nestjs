@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { Autor } from './interface/autor.interface';
 import { CreateAutorDTO } from './dto/autor.dto';
+import { UpdateAutorDTO } from './dto/autor.dto';
 
 @Injectable()
 export class AutorService {
@@ -11,7 +12,7 @@ export class AutorService {
     constructor(@InjectModel('Autor') private readonly autorModel: Model<Autor>){}
 
     async getAutors(): Promise<Autor[]> {
-        const autors = await this.autorModel.find()
+        const autors = await this.autorModel.find().populate('books');
         return autors;
     }
 
@@ -30,8 +31,8 @@ export class AutorService {
         return autorDeleted;
     }
 
-    async updateAutor(autorID: string, createAutorDTO: CreateAutorDTO): Promise<Autor>{
-        const autorToUpdate = await this.autorModel.findByIdAndUpdate(autorID, createAutorDTO, { new: true });
+    async updateAutor(autorID: string, updateAutorDTO: UpdateAutorDTO): Promise<Autor>{
+        const autorToUpdate = await this.autorModel.findByIdAndUpdate(autorID, updateAutorDTO, { new: true });
         return await autorToUpdate.save();
     }
 

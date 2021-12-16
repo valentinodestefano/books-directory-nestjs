@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put, Res } from '@nestjs/common';
 
 import { CreateAutorDTO } from './dto/autor.dto';
+import { UpdateAutorDTO } from './dto/autor.dto';
 
 import { AutorService } from './autor.service';
 
@@ -18,7 +19,7 @@ export class AutorController {
         const autor = await this.autorService.createAutor(createAutorDTO);
         return res.status(HttpStatus.OK).json({
             message: 'created',
-            book: autor
+            autor: autor
         });
     }
 
@@ -28,7 +29,7 @@ export class AutorController {
         const autors = await this.autorService.getAutors();
         return res.status(HttpStatus.OK).json({
             message: 'Succesfull',
-            books: autors
+            autors: autors
         })
     }
 
@@ -56,11 +57,11 @@ export class AutorController {
 
     @ApiTags('Autor')
     @Put('/update/:autorID')
-    async updateBook(@Param('autorID') autorID: string, @Body() createAutorDTO: CreateAutorDTO, @Res() res){
-        const updatedAutor = await this.autorService.updateAutor(autorID, createAutorDTO);
+    async updateBook(@Param('autorID') autorID: string, @Body() updateAutorDTO: UpdateAutorDTO, @Res() res){
+        const updatedAutor = await this.autorService.updateAutor(autorID, updateAutorDTO);
         return res.status(HttpStatus.OK).json({
             message: 'succesful update',
-            book: updatedAutor
+            autor: updatedAutor
         })
     }
 
